@@ -1,0 +1,15 @@
+{
+  "name": "ttr-report",
+  "version": "1.0.0",
+  "description": "generate latest ttr report ",
+  "main": "ttrAudit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ttrAudit.js"
+  },
+  "author": "Dave Galas",
+  "license": "ISC",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
