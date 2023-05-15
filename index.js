@@ -4,16 +4,11 @@ const utils = require("./misc/utils")
 const today = new Date()
 const eoPrevMonth = new Date(today.getFullYear(), today.getMonth(), 1)
 
-const percentage = process.argv[2] * 1
-if (!percentage) {
-  throw new Error("Percentage needed to calculate audit.")
-} else if (!Number(percentage)) {
-}
-
 const TTRFileName = "./input/TTR.xlsx"
 const OTBMFileName = "./input/OTBM.xlsx"
 const PPMCFileName = "./input/PPMC.xlsx"
 const RATESFileName = "./input/references/RATES.xlsx"
+const TIMEFileName = "./input/references/TIME.xlsx"
 
 // Data extraction
 function extractData() {
@@ -35,7 +30,16 @@ function extractData() {
   })
   return fileData
 }
-const [TTRdata, OTBMdata, PPMCdata, RATESdata] = extractData(TTRFileName, OTBMFileName, PPMCFileName, RATESFileName)
+
+const [TTRdata, OTBMdata, PPMCdata, RATESdata, TIMEdata] = extractData(
+  TTRFileName,
+  OTBMFileName,
+  PPMCFileName,
+  RATESFileName,
+  TIMEFileName
+)
+
+const percentage = Object.values(TIMEdata[4])[1]
 
 // Projects list data
 let noPlan = []
@@ -123,6 +127,8 @@ const resourcesData = () => {
     const projectName = e["Project Name"]
     const regexedName = projectName?.match(regex)?.[0] ?? null
     return regexedName !== null
+  }).filter((e) => {
+    return e["Allocation status"] != "No Resource Allocated"
   })
   const projectsWithRegexedName = filteredProjects.map((e) => {
     const projectName = e["Project Name"]
@@ -284,14 +290,14 @@ const resourcesData = () => {
         "Project Name": e["Project Name"],
         "Project ID": e["regexedName"],
         "Manager Name": e["Manager Name"],
-        "Employee ID": e["Employee ID"] * 1 ? e["Employee ID"] * 1 : e["Employee ID"],
+        "Employee ID": Number(e["Employee ID"]),
         Employee: e["Employee"],
         "PG Job Level": e["Job Level"],
         "DXC Job Level": e["DXC Job Level"],
         Country: e["Country"],
-        "Sum of Actual FTE": e["Sum of Actual FTE"],
-        "Sum of PPMC FTE": e["Sum of PPMC FTE"],
-        "FTE Variance": e["FTE Variance"],
+        "Sum of Actual FTE": Number(parseFloat(e["Sum of Actual FTE"]).toFixed(2)),
+        "Sum of PPMC FTE": Number(parseFloat(e["Sum of PPMC FTE"]).toFixed(2)),
+        "FTE Variance": Number(parseFloat(e["FTE Variance"]).toFixed(2)),
         "Utilization Rate": e["Utilization Rate"],
         "Actual Hours": e["Actual Hours"],
         "Planned Hours": e["Planned Hours"],
