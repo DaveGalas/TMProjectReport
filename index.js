@@ -10,6 +10,8 @@ const PPMCFileName = "./input/PPMC.xlsx"
 const RATESFileName = "./input/references/RATES.xlsx"
 const TIMEFileName = "./input/references/TIME.xlsx"
 
+console.log("... Reading Excel files.")
+
 // Data extraction
 function extractData() {
   let fileData = []
@@ -40,6 +42,7 @@ const [TTRdata, OTBMdata, PPMCdata, RATESdata, TIMEdata] = extractData(
 )
 
 const percentage = Object.values(TIMEdata[4])[1]
+console.log(`Percentage: ${percentage.toFixed(2)}`)
 
 // Projects list data
 let noPlan = []
@@ -341,6 +344,7 @@ const writeExcel = () => {
   // excel.utils.book_append_sheet(wb, descriptionSheet, "Report")
 
   excel.writeFile(wb, filePath)
+
   console.log(
     `\nReport generated - PG T&M Projects Report ${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}.xlsx`
   )
