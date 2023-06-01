@@ -10,6 +10,7 @@
   "author": "Dave Galas",
   "license": "ISC",
   "dependencies": {
+    "excel-date-to-js": "^1.1.5",
     "xlsx": "^0.18.5"
   }
 }
