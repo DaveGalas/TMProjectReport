@@ -1,26 +1,14 @@
 const excel = require( "xlsx" )
 
-exports.extractData = ( arg ) => {
-    console.log( "...Reading Excel Files" )
-    
-    const args = [...arg]
-    const fileData = []
-
-    args.forEach((e) => {
-        const temp = []
-        const tempFile = excel.readFile(e)
-        const tempSheets = tempFile.SheetNames
-
-        tempSheets.forEach((f) => {
-            const sheetRows = excel.utils.sheet_to_json(tempFile.Sheets[f])
-
-            sheetRows.forEach((g) => {
-                temp.push(g)
-            })
-        })
-
-        fileData.push(temp)
+exports.extractData = (arg) => {
+    console.log("...Reading Excel Files")
+    const files = [...arg]
+    const xlsxData = files.map( e => {
+        const xlsxFile = excel.readFile( e )
+        const xlsxSheets = xlsxFile.SheetNames
+        
+        return excel.utils.sheet_to_json(xlsxFile.Sheets[xlsxSheets[0]])
     })
 
-    return fileData
+    return xlsxData
 }
