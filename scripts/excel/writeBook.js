@@ -21,6 +21,8 @@ exports.writeBook = ( projects, resources, noPlan, today, percentage, reportDate
     excel.utils.book_append_sheet(wb, resourcesSheet, "Resources List")
 
     excel.writeFile( wb, filePath )
+    writeFileSync("./output/dynamic/projects.json", JSON.stringify(projectsSheetData))
+    writeFileSync("./output/dynamic/resources.json", JSON.stringify(resourcesSheetData))
     
     const onTrackCount = resourcesSheetData.filter((e) => e["Audit"] == "On Track").length
     const undertrackingCount = resourcesSheetData.filter((e) => e["Audit"] == "Undertracking").length

@@ -8,7 +8,7 @@ const { timeExtract, toUnix } = require("./scripts/utils")
 
 const [TTRdata, OTBMdata, PPMCdata, RATESdata, TIMEdata] = extractData(files)
 const { reportDate, today, eoPrevMonth } = timeExtract(TIMEdata)
-const percentage = 0.85
+const percentage = 0.10
 
 const projects = projectsData(OTBMdata, TTRdata, eoPrevMonth)
 const resources = resourcesData(TTRdata, PPMCdata, RATESdata, projects, percentage)
