@@ -8,7 +8,7 @@ exports.writeBook = ( projects, resources, noPlan, today, percentage, reportDate
     const projectsSheetData = projects
     const resourcesSheetData = [...resources, ...noPlan]
 
-    const filePath = `./output/PG T&M Projects Report ${
+    const filePath = `./output/archive/PG T&M Projects Report ${
         today.getMonth() + 1
     }-${today.getDate()}-${today.getFullYear()}.xlsx`
 
